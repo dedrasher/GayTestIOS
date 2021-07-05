@@ -60,6 +60,7 @@ struct ContentView: View {
                                         Test.name = name
                                             Test.SaveAge()
                                             Test.SaveName()
+                             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                         }
                     }, label: {
                        Text("Start")
