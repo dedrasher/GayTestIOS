@@ -14,10 +14,7 @@ struct QuestionView: View {
     @State private var showResult = false
     @State private var isHidden = false
    @State private var questionIndex:Int = 0
-    func setNavigationBarAppearanceToDefault() {
-        UINavigationBar.appearance().shadowImage = nil
-        UINavigationBar.appearance().setBackgroundImage(nil, for: .default)
-    }
+ 
     func loadHome() {
         DispatchQueue.main.async {
             if(Test.history.count > 100) {
@@ -28,7 +25,6 @@ struct QuestionView: View {
             Test.IsGayHistory.append(isGay)
             Test.SaveIsGayHistory()
             Test.SaveHistory()
-            setNavigationBarAppearanceToDefault()
             self.presentationMode.wrappedValue.dismiss()
                 }
     }
@@ -60,11 +56,9 @@ struct QuestionView: View {
                         
     ]
     var body: some View {
-
         NavigationView {
         VStack {
-            Text(questions[questionIndex].question).font(.system(size: 35)).scaledToFit().minimumScaleFactor(0.5)
-            Text("Question " +  String(questionIndex + 1) + " of 15").font(.system(size: 35)).padding()
+            Text(questions[questionIndex].question).font(.system(size: 40)).scaledToFit().minimumScaleFactor(0.5).padding(.top, 20)
             Spacer()
             Image(questions[questionIndex].questionImageSource).resizable().scaledToFit().padding(.horizontal, 10).clipShape(RoundedRectangle(cornerRadius: 45))
 
@@ -98,7 +92,6 @@ struct QuestionView: View {
             ToolbarItem(placement:.navigationBarLeading) {
                 Button(action: {
                     Test.score = 0.0
-                    setNavigationBarAppearanceToDefault()
                         self.presentationMode.wrappedValue.dismiss()
                 }
                 ) {
@@ -108,7 +101,7 @@ struct QuestionView: View {
                     }
                 }
             }
-        }.navigationBarTitleDisplayMode(.inline).alert(isPresented: $showResult) {
+        }.navigationBarTitle("Question " +  String(questionIndex + 1) + " of 15", displayMode: .inline).alert(isPresented: $showResult) {
             Alert(title: Text("Result"), message: Text(result), primaryButton: .default(Text("OK")) {
                 self.blurRadius = 0.0
                 self.loadHome()
@@ -118,10 +111,7 @@ struct QuestionView: View {
                 showResult = false
             })
         }
-        }.blur(radius: blurRadius).navigationBarBackButtonHidden(true).navigationBarHidden(true).onAppear{
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-        }
+        }.blur(radius: blurRadius).navigationBarBackButtonHidden(true).navigationBarHidden(true)
                                             
     }
 }
