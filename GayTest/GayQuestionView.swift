@@ -78,10 +78,7 @@ struct GayQuestionView: View {
             ForEach(questions.indices) { i in
         VStack {
             Text(questions[i].question).font(.system(size: 40)).scaledToFit().minimumScaleFactor(0.2).padding(.top, 20)
-            Spacer()
             Image(questions[i].questionImageSource).resizable().scaledToFit().padding(.horizontal, 10).clipShape(RoundedRectangle(cornerRadius: 45))
-
-            Spacer()
             HStack {
             Button(action: {
                 answers[i] = Answer.yes
